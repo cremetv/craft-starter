@@ -1,4 +1,4 @@
-{%- if companyInfo.email|length -%}
+{%- if companyInfo is defined and companyInfo.email|length -%}
   {%- set email = "<a href=\"mailto:" ~ companyInfo.email ~ "\" itemprop=\"email\">" ~ companyInfo.email ~ "</a>" -%}
 {%- endif -%}
 <!DOCTYPE html>
