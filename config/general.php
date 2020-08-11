@@ -29,7 +29,7 @@ return [
         'limitAutoSlugsToAscii' => true,
 
         'aliases' => [
-          '@baseUrl' => 'https://name.de'
+          '@baseUrl' => 'https://name.de',
           '@baseRoot' => dirname(__DIR__) . '/web',
           '@baseAssets' => '@baseRoot/public',
           '@staticAssetsVersion' => '0.0.1',
