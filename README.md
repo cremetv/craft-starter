@@ -25,3 +25,7 @@ Once you cloned this starter template to your project folder you can install all
 composer i
 npm i
 ```
+And finally install craft.
+```
+craft setup
+```
