@@ -1,0 +1,53 @@
+{%- if companyInfo.email|length -%}
+  {%- set email = "<a href=\"mailto:" ~ companyInfo.email ~ "\" itemprop=\"email\">" ~ companyInfo.email ~ "</a>" -%}
+{%- endif -%}
+<!DOCTYPE html>
+<html lang="{{ craft.app.language }}" dir="ltr">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="msapplication-navbutton-color" content="#ffffff" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff" />
+
+  {% hook "seo" %}
+
+  {# <link rel="apple-touch-icon" sizes="57x57" href="{{ siteUrl }}public/favicons/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="{{ siteUrl }}public/favicons/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="{{ siteUrl }}public/favicons/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="{{ siteUrl }}public/favicons/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="{{ siteUrl }}public/favicons/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="{{ siteUrl }}public/favicons/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="{{ siteUrl }}public/favicons/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="{{ siteUrl }}public/favicons/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ siteUrl }}public/favicons/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="{{ siteUrl }}public/favicons/android-icon-192x192.png">
+
+  <link rel="shortcut icon" href="{{ siteUrl }}favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" sizes="16x16" href="{{ siteUrl }}public/favicons/favicon-16x16.png" type="image/png">
+  <link rel="shortcut icon" sizes="32x32" href="{{ siteUrl }}public/favicons/favicon-32x32.png" type="image/png">
+  <link rel="shortcut icon" sizes="96x96" href="{{ siteUrl }}public/favicons/favicon-96x96.png" type="image/png"> #}
+
+  {% do view.registerCssFile('@baseUrl/public/css/style.min.css?v=' ~ alias('@staticAssetsVersion')) %}
+
+  {% block headScripts %}{% endblock %}
+</head>
+<body class="{% block bodyClass %}{% endblock %} {% if currentUser %}logged-in{% endif %}" data-barba="wrapper">
+
+  {% include '_sections/_nav.twig' %}
+
+  {% block main %}{% endblock %}
+
+  {% include '_sections/_footer.twig' %}
+
+
+  {# {% do view.registerCssFile('@baseUrl/public/css/utility/mapbox.min.css') %} #}
+  {# {% do view.registerJsFile('@baseUrl/public/js/utility/mapbox.min.js', {'defer': 'defer'}) %} #}
+  {# {% do view.registerJsFile('@baseUrl/public/js/utility/leaflet-gesture-handling.min.js') %} #}
+
+  {% do view.registerJsFile('@baseUrl/public/js/main.min.js?v=' ~ alias('@staticAssetsVersion'), {'defer': 'defer'}) %}
+
+  {% block scripts %}{% endblock %}
+</body>
+</html>

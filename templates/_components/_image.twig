@@ -1,0 +1,53 @@
+{# Image Options #}
+{# image       str     | image object
+ # alt         str     | alt text for image
+ # title       str     | title text for image
+ # classes     array   | array of class names
+ # sizes       str     | size values
+ # attributes  array   | html attributes as string in an array     | attributes: ['data-lorem="ipsum", 'data-foo="bar"]
+ # lazy        boolean | if the image should be lazy loaded or not | default true
+ #}
+ 
+{% set image = image is defined ? image : null %}
+{# if image is a string search for it #}
+{% if not image is iterable  %}
+  {% set image = craft.assets.filename(image).one() %}
+{% endif %}
+
+
+{# set a default alt text if nothing is provided #}
+{% set alt = alt is defined ? alt : image.title ~ ' | ' ~ siteName %}
+
+
+{# set image title if title is provided else check if copyright Info is provided #}
+{% set title = title is defined ? title : null %}
+{% if title is null and image.copyrightInfo|length  %}
+  {% set title = image.copyrightInfo %}
+{% endif %}
+
+
+{% set classes = classes is defined ? classes : null %}
+{% set sizes = sizes is defined ? sizes : '100vw' %}
+{% set attributes = attributes is defined ? attributes : null %}
+{% set lazy = lazy is defined ? lazy : true %}
+
+
+
+{% set optimizedImages = image.imageTransform %}
+<picture>
+  {% if craft.imageOptimize.serverSupportsWebP() %}
+    <source {% if lazy %}data-{% endif %}srcset="{{ optimizedImages.srcsetWebP() }}"
+            {% if lazy %}data-{% endif %}sizes="{{ sizes }}"
+            type="image/webp" />
+  {% endif %}
+    <img {% if lazy %}data-{% endif %}srcset="{{ optimizedImages.srcset() }}"
+         {% if lazy %}data-{% endif %}sizes="{{ sizes }}"
+         {% if lazy %}data-{% endif %}src="{{ image.url }}"
+         {% if lazy %}src="{{ optimizedImages.placeholderBox() }}"{% endif %}
+         alt = "{{ image.title }} | {{ siteName }}"
+         class="responsive-img {{ lazy ? 'lazyload' }} {{ classes|join(' ') }}"
+         style="{% if image.hasFocalPoint %}{% set x = image.focalPoint | first * 100 ~ '%' %}{% set y = image.focalPoint | last * 100 ~ '%' %}object-position: {{x}} {{y}};{% endif %}"
+         {% if title is not null %}title="{{ title }}"{% endif %}
+         {{ attributes|join(' ') }}>
+</picture>
+{# <img src="{{ image.url }}" alt="" class="responsive-img {{ classes|join(' ') }}" style="{% if image.hasFocalPoint %}{% set x = image.focalPoint | first * 100 ~ '%' %}{% set y = image.focalPoint | last * 100 ~ '%' %}object-position: {{x}} {{y}};{% endif %}" {{ attributes|join(' ') }}> #}
