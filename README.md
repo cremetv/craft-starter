@@ -15,6 +15,8 @@ Remove the temporary local repository you created earlier.
 ```
 cd ..
 rm -rf craft-starter.git
+// or windows :>
+rd /s /q "craft-starter.git"
 ```
 
 ## installation
