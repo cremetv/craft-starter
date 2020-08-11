@@ -4,6 +4,26 @@
 <!DOCTYPE html>
 <html lang="{{ craft.app.language }}" dir="ltr">
 <head>
+  {# if usercentrics Id is set implement usercentrics widget #}
+  {%- if globalSettings is defined -%}
+    {%- if globalSettings.usercentricsId|length -%}
+      <script type="application/javascript" src="https://app.usercentrics.eu/latest/main.js" id="{{ globalSettings.usercentricsId }}" async></script>
+
+      {# if google analytics Id is set implement Google Analytics as text/plain #}
+      {%- if globalSettings.gaId|length -%}
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script type="text/plain" data-usercentrics="Google Analytics" async src="https://www.googletagmanager.com/gtag/js?id={{ globalSettings.gaId }}"></script>
+        <script type="text/plain" data-usercentrics="Google Analytics">
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', '{{ globalSettings.gaId }}', {'anonymize_ip': true});
+        </script>
+      {%- endif -%}
+    {%- endif -%}
+  {%- endif -%}
+
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
