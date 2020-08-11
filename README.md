@@ -1,5 +1,5 @@
 # craft-starter
-personal basic template for a new craft project
+personal basic template for a new Craft CMS project
 
 ## cloning
 Create a bare clone of this repo.
@@ -15,7 +15,9 @@ Remove the temporary local repository you created earlier.
 ```
 cd ..
 rm -rf craft-starter.git
-// or windows :>
+```
+or in windows
+```
 rd /s /q "craft-starter.git"
 ```
 
