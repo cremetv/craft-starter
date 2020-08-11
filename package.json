@@ -1,0 +1,37 @@
+{
+  "name": "craft-starter",
+  "version": "1.0.0",
+  "description": "personal basic template for a new craft project",
+  "private": true,
+  "scripts": {
+    "build": "webpack --config webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cremetv/craft-starter.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cremetv/craft-starter/issues"
+  },
+  "homepage": "https://github.com/cremetv/craft-starter#readme",
+  "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "babel-loader": "^8.1.0",
+    "imports-loader": "^1.1.0",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "@barba/core": "^2.9.7",
+    "gsap": "^3.4.2",
+    "lazysizes": "^5.2.2",
+    "photoswipe": "^4.1.3",
+    "scrollmagic": "^2.0.7",
+    "scrollmagic-plugin-gsap": "^1.0.4",
+    "swiper": "^6.1.1"
+  }
+}

@@ -1,0 +1,204 @@
+.container {
+  max-width: var(--maxWidth);
+  padding: 0 1.25rem;
+
+  @include breakpoint('m') {
+    padding: 0 2.5rem;
+  }
+
+  @include breakpoint('xl') {
+    padding: 0 5rem;
+  }
+}
+
+
+.grid,
+.row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: var(--columnGap);
+  grid-row-gap: var(--rowGap);
+  margin: 0 auto;
+
+  @include breakpoint('m') {
+    grid-template-columns: repeat(8, 1fr);
+  }
+
+  @include breakpoint('xl') {
+    grid-template-columns: repeat(12, 1fr);
+  }
+}
+
+
+.row {
+  margin: 0 auto var(--rowGap);
+}
+
+
+.col {
+  max-width: 100%;
+  grid-column-end: span 4;
+
+  @include breakpoint('m') {
+    grid-column-end: span 8;
+  }
+
+  @include breakpoint('xl') {
+    grid-column-end: span 12;
+  }
+
+  @for $i from 1 through 12 {
+		&.xs#{$i} {
+			grid-column-end: span #{round($i / 3)};
+		}
+	}
+
+	@include breakpoint('s') {
+		@for $i from 1 through 12 {
+			&.s#{$i} {
+				grid-column-end: span #{round($i / 3)};
+			}
+		}
+	}
+
+	@include breakpoint('m') {
+		@for $i from 1 through 12 {
+			&.xs#{$i} {
+				grid-column-end: span #{round($i / 1.5)};
+			}
+		}
+    @for $i from 1 through 12 {
+			&.s#{$i} {
+				grid-column-end: span #{round($i / 1.5)};
+			}
+		}
+    @for $i from 1 through 12 {
+			&.m#{$i} {
+				grid-column-end: span #{round($i / 1.5)};
+			}
+		}
+	}
+
+	@include breakpoint('l') {
+		@for $i from 1 through 12 {
+			&.l#{$i} {
+				grid-column-end: span #{round($i / 1.5)};
+			}
+		}
+	}
+
+	@include breakpoint('xl') {
+		@for $i from 1 through 12 {
+			&.xs#{$i} {
+				grid-column-end: span #{$i};
+			}
+		}
+    @for $i from 1 through 12 {
+			&.s#{$i} {
+				grid-column-end: span #{$i};
+			}
+		}
+    @for $i from 1 through 12 {
+			&.m#{$i} {
+				grid-column-end: span #{$i};
+			}
+		}
+    @for $i from 1 through 12 {
+			&.l#{$i} {
+				grid-column-end: span #{$i};
+			}
+		}
+    @for $i from 1 through 12 {
+			&.xl#{$i} {
+				grid-column-end: span #{$i};
+			}
+		}
+	}
+
+	@include breakpoint('sl') {
+		@for $i from 1 through 12 {
+			&.sl#{$i} {
+				grid-column-end: span #{$i};
+			}
+		}
+	}
+
+  &.start {
+		@for $i from 1 through 12 {
+			&--xs-#{$i} {
+				grid-column-start: #{round($i / 3)};
+			}
+		}
+
+		@include breakpoint('s') {
+			@for $i from 1 through 12 {
+				&--s-#{$i} {
+					grid-column-start: #{round($i / 3)};
+				}
+			}
+		}
+
+		@include breakpoint('m') {
+			@for $i from 1 through 12 {
+				&--xs-#{$i} {
+					grid-column-start: #{round($i / 1.5)};
+				}
+			}
+			@for $i from 1 through 12 {
+				&--s-#{$i} {
+					grid-column-start: #{round($i / 1.5)};
+				}
+			}
+			@for $i from 1 through 12 {
+				&--m-#{$i} {
+					grid-column-start: #{round($i / 1.5)};
+				}
+			}
+		}
+
+		@include breakpoint('l') {
+			@for $i from 1 through 12 {
+				&--l-#{$i} {
+					grid-column-start: #{round($i / 1.5)};
+				}
+			}
+		}
+
+		@include breakpoint('xl') {
+			@for $i from 1 through 12 {
+				&--xs-#{$i} {
+					grid-column-start: $i;
+				}
+			}
+			@for $i from 1 through 12 {
+				&--s-#{$i} {
+					grid-column-start: $i;
+				}
+			}
+			@for $i from 1 through 12 {
+				&--m-#{$i} {
+					grid-column-start: $i;
+				}
+			}
+			@for $i from 1 through 12 {
+				&--l-#{$i} {
+					grid-column-start: $i;
+				}
+			}
+			@for $i from 1 through 12 {
+				&--xl-#{$i} {
+					grid-column-start: $i;
+				}
+			}
+		}
+
+		@include breakpoint('sl') {
+			@for $i from 1 through 12 {
+				&--sl-#{$i} {
+					grid-column-start: $i;
+				}
+			}
+		}
+	}
+}

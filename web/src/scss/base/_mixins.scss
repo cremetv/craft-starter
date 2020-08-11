@@ -1,0 +1,121 @@
+/* breakpoint mixin */
+@mixin breakpoint($breakpoint, $direction: $media-direction) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media only screen and (#{$direction}-width: #{map-get($breakpoints, $breakpoint)}) {
+      @content;
+    }
+  }
+  @else if unitless($breakpoint) {
+    $breakpoint: $breakpoint + 0px;
+    @media only screen and (#{$direction}-width: $breakpoint) {
+      @content;
+    }
+  }
+}
+
+
+/* hover */
+@mixin hover() {
+  @media (hover: hover) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+
+/* z-index */
+@function z-index($name){
+  $z: null;
+  @if type-of($z-layers) == map { $z: map-get($z-layers, $name); }
+  @if type-of($z-layers) == list {
+    @for $i from 1 through length($z-layers) {
+      @if nth($z-layers, $i) == $name { $z: $i; }
+    }
+  }
+  @if $z { @return $z; }
+  @else { @error('Could not find a z-index for `#{$name}`'); }
+}
+@mixin z-index($name){ z-index: z-index($name); }
+
+
+@mixin serif() {
+  font-family: "Source Serif Pro", Times, serif;
+}
+
+
+/* scrollbar */
+@mixin scrollbar(
+  $size: 6px,
+  $thumbColor: #CCCCCC,
+  $trackColor: #F2F2F2,
+  $thumbColorDark: #202225,
+  $trackColorDark: #2F3136,
+  $borderRadius: 3px) {
+
+  &::-webkit-scrollbar {
+    width: $size;
+    height: $size;
+
+    &-button {
+      width: 0px;
+      height: 0px;
+    }
+
+    &-thumb {
+      background: $thumbColor;
+      border: 0px none #ffffff;
+      border-radius: $borderRadius;
+
+      &:hover {
+        background: lighten($thumbColor, 2%);
+      }
+
+      &:active {
+        background: darken($thumbColor, 5%);
+      }
+    }
+
+    &-track {
+      background: $trackColor;
+      border: 0px none #ffffff;
+      border-radius: 0;
+
+      &:hover {
+        background: darken($trackColor, 2%);
+      }
+
+      // &:active {
+      //   background: darken($trackColor, 5%);
+      // }
+    }
+
+    &-corner {
+      background: transparent;
+    }
+  }
+
+  html[data-theme="dark"] {
+    &::-webkit-scrollbar {
+      &-thumb {
+        background: $thumbColorDark;
+
+        &:hover {
+          background: lighten($thumbColorDark, 2%);
+        }
+
+        &:active {
+          background: darken($thumbColorDark, 5%);
+        }
+      }
+
+      &-track {
+        background: $trackColorDark;
+
+        &:hover {
+          background: darken($trackColorDark, 2%);
+        }
+      }
+    }
+  }
+}

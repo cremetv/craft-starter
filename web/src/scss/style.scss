@@ -1,0 +1,47 @@
+/*! @license
+ * MedienMacher BWG
+ *
+ * copyright 2020 MedienMacher BWG (https://medienmacher-bwg.de/)
+*/
+
+/* Breakpoints */
+$media-direction: min;
+$breakpoints: (
+  'default': '',
+  's':       480px,
+  'm':       768px,
+  'l':       1024px,
+  'xl':      1200px,
+  'sl':      1600px,
+
+  'desktop': 1200px,
+);
+
+
+
+/* z-index layers */
+$z-layers: (
+  'header': 100,
+  'nav': 105,
+  'burger': 110
+);
+
+
+
+/* grid settings */
+:root {
+  --maxWidth: 1440px;
+  --columnGap: 1.25rem;
+  --rowGap: 1.25rem;
+
+  // desktop
+  @media only screen and (min-width: 1200px) {
+    --columnGap: 2.5rem;
+    --rowGap: 2.5rem;
+  }
+}
+
+
+
+/* import style sheets */
+@import 'import';

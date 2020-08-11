@@ -1,0 +1,28 @@
+:root {
+  --success: #{$success};
+  --success-hover: #{$successHover};
+  --success-active: #{$successActive};
+
+  --error: #{$error};
+  --error-hover: #{$errorHover};
+  --error-active: #{$errorActive};
+
+  --main: #{$main};
+
+  --headings: #{$headings};
+  --typo: #{$typo};
+
+  --fw-thin: #{$fw-thin};
+  --fw-extraLight: #{$fw-extraLight};
+  --fw-light: #{$fw-light};
+  --fw-regular: #{$fw-regular};
+  --fw-medium: #{$fw-medium};
+  --fw-semiBold: #{$fw-semiBold};
+  --fw-bold: #{$fw-bold};
+  --fw-extraBold: #{$fw-extraBold};
+  --fw-black: #{$fw-black};
+
+  --depth-1: #{$depth-1};
+  --depth-2: #{$depth-2};
+  --depth-3: #{$depth-3};
+}

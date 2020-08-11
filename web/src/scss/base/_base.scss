@@ -1,0 +1,295 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+  @supports (font-variation-settings: normal) {
+    font-family: 'Inter var', sans-serif;
+  }
+
+  &::selection {
+    background: var(--main);
+    color: var(--typo);
+    color: var(--headings);
+    color: $white;
+  }
+}
+
+
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+
+
+  &.overflow {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+
+    body {
+      @include breakpoint('desktop') {
+        @media (hover: hover) {
+          padding-right: 17px;
+        }
+      }
+    }
+  }
+}
+
+
+
+body {
+  margin: 0;
+  max-width: 100%;
+}
+
+
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--headings);
+  line-height: 1;
+  font-weight: var(--fw-bold);
+  margin: .625rem 0 1.25rem;
+  letter-spacing: .02em;
+}
+
+h1,
+.h1 {
+  font-size: 2.25rem;
+}
+
+h2,
+.h2 {
+  font-size: 2rem;
+}
+
+h3,
+.h3 {
+  font-size: 1.75rem;
+}
+
+h4,
+.h4 {
+  font-size: 1.5rem;
+}
+
+h5,
+.h5 {
+  font-size: 1.25rem;
+}
+
+h6,
+.h6 {
+  font-size: 1rem;
+}
+
+
+
+p {
+  font-size: 1rem;
+  color: var(--typo);
+  line-height: 1.6;
+  letter-spacing: .02em;
+  font-weight: var(--fw-regular);
+  font-variation-settings: 'wght' var(--fw-regular), 'slnt' 0;
+
+
+  // + p {
+  //   &:before {
+  //     content: '\00a0\A';
+  //     white-space: -moz-pre-line;
+  //     white-space: pre-line;
+  //   }
+  // }
+
+
+  strong {
+    color: var(--headings);
+    font-weight: var(--fw-semiBold);
+    font-variation-settings: 'wght' var(--fw-semiBold), 'slnt' 0;
+  }
+
+
+  a {
+    color: var(--main);
+    text-decoration: none;
+    font-weight: var(--fw-semiBold);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+
+
+.relative {
+  position: relative;
+}
+
+
+
+.color {
+  &--typo {
+    color: var(--typo) !important;
+  }
+  &--headings {
+    color: var(--headings) !important;
+  }
+  &--main,
+  &--main a {
+    color: var(--main);
+  }
+}
+
+
+
+.no-margin {
+  margin: 0 !important;
+
+  &--top {margin-top: 0 !important;}
+  &--right {margin-right: 0 !important;}
+  &--bottom {margin-bottom: 0 !important;}
+  &--left {margin-left: 0 !important;}
+}
+
+
+
+.paragraph {
+  // margin: 2rem 0;
+
+  // > p {
+  //   &:first-of-type {
+  //     margin-top: 0;
+  //   }
+  //
+  //   &:last-of-type {
+  //     margin-bottom: 0;
+  //   }
+  // }
+
+  &--two-columns {
+    @include breakpoint('m') {
+      column-count: 2;
+      column-gap: 6.25rem;
+    }
+  }
+}
+
+
+
+.align {
+  &--left {
+    text-align: left;
+  }
+  &--right {
+    text-align: right;
+  }
+  &--center {
+    text-align: center;
+  }
+}
+
+
+
+.responsive-img {
+  max-width: 100%;
+}
+
+
+
+img {
+  vertical-align: middle;
+}
+
+
+
+.ratio {
+  position: relative;
+
+  &:before {
+    display: block;
+    content: '';
+    width: 100%;
+  }
+
+  &--16-5 {&:before{padding-top: (5 / 16) * 100%;}}
+  &--8-5 {&:before{padding-top: (5 / 8) * 100%;}}
+  &--4-3 {&:before{padding-top: (3 / 4) * 100%;}}
+  &--3-2 {&:before{padding-top: (2 / 3) * 100%;}}
+  &--1-1 {&:before{padding-top: (1 / 1) * 100%;}}
+
+  > img,
+  > picture,
+  > picture > img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+
+
+.flex {
+  display: flex;
+  flex-direction: row;
+
+  &--row {
+    flex-direction: row;
+
+    &.flex--left {
+      justify-content: flex-start !important;
+    }
+    &.flex--center {
+      justify-content: center !important;
+    }
+    &.flex--right {
+      justify-content: flex-end !important;
+    }
+
+    &.flex--top {
+      align-items: flex-start !important;
+    }
+    &.flex--mid {
+      align-items: center !important;
+    }
+    &.flex--bot {
+      align-items: flex-end !important;
+    }
+  }
+
+  &--column {
+    flex-direction: column;
+
+    &.flex--left {
+      align-items: flex-start !important;
+    }
+    &.flex--center {
+      align-items: center !important;
+    }
+    &.flex--right {
+      align-items: flex-end !important;
+    }
+
+    &.flex--top {
+      justify-content: flex-start !important;
+    }
+    &.flex--mid {
+      justify-content: center !important;
+    }
+    &.flex--bot {
+      justify-content: flex-end !important;
+    }
+  }
+}

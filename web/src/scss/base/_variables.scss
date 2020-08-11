@@ -1,0 +1,41 @@
+/* colors */
+$white: #fff;
+$black: #000;
+
+$main: #ef3340;
+
+$headings: #313131;
+$typo: #484848;
+
+$success: #43b581;
+$successHover: #3EA777;
+$successActive: #37956A;
+
+$error: #f04747;
+$errorHover: #DF4343;
+$errorActive: #D13333;
+
+/* font weights */
+$fw-thin: 100;
+$fw-extraLight: 200;
+$fw-light: 300;
+$fw-regular: 400;
+$fw-medium: 500;
+$fw-semiBold: 600;
+$fw-bold: 700;
+$fw-extraBold: 800;
+$fw-black: 900;
+
+/* easing */
+$cubic: cubic-bezier(.25,.46,.45,.94);
+$quint: cubic-bezier(.83,0,.17,1);
+
+/* shadows */
+$depth-1: 0 2px 3px rgba(50,50,93,.2), 0 1px 2px rgba(0,0,0,.1); // action
+$depth-2: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08); // default
+$depth-3: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08); // hover
+
+/* shadows top */
+$depth-1-u: 0 -2px 3px rgba(50,50,93,.2), 0 -1px 2px rgba(0,0,0,.1); // action
+$depth-2-u: 0 -4px 6px rgba(50,50,93,.11), 0 -1px 3px rgba(0,0,0,.08); // default
+$depth-3-u: 0 -7px 14px rgba(50,50,93,.1), 0 -3px 6px rgba(0,0,0,.08); // hover
