@@ -5,3 +5,4 @@
 .DS_Store
 
 /web/public/images
+/web/.htaccess
