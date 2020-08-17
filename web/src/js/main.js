@@ -7,6 +7,7 @@
 document.documentElement.classList.add('js');
 
 import { select, selectAll, ready } from './utility/utils';
+import 'lazysizes';
 // import barba from '@barba/core';
 // import { gsap } from 'gsap';
 
