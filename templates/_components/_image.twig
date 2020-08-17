@@ -7,7 +7,7 @@
  # attributes  array   | html attributes as string in an array     | attributes: ['data-lorem="ipsum", 'data-foo="bar"]
  # lazy        boolean | if the image should be lazy loaded or not | default true
  #}
- 
+
 {% set image = image is defined ? image : null %}
 {# if image is a string search for it #}
 {% if not image is iterable  %}
@@ -31,23 +31,30 @@
 {% set attributes = attributes is defined ? attributes : null %}
 {% set lazy = lazy is defined ? lazy : true %}
 
-
-
-{% set optimizedImages = image.imageTransform %}
-<picture>
-  {% if craft.imageOptimize.serverSupportsWebP() %}
-    <source {% if lazy %}data-{% endif %}srcset="{{ optimizedImages.srcsetWebP() }}"
-            {% if lazy %}data-{% endif %}sizes="{{ sizes }}"
-            type="image/webp" />
-  {% endif %}
-    <img {% if lazy %}data-{% endif %}srcset="{{ optimizedImages.srcset() }}"
-         {% if lazy %}data-{% endif %}sizes="{{ sizes }}"
-         {% if lazy %}data-{% endif %}src="{{ image.url }}"
-         {% if lazy %}src="{{ optimizedImages.placeholderBox() }}"{% endif %}
-         alt = "{{ image.title }} | {{ siteName }}"
+{% set imageOptimizeIsInstalled = craft.app.plugins.isPluginInstalled('imageOptimize') %}
+{% if imageOptimizeIsInstalled %}
+  {% set optimizedImages = image.imageTransform %}
+  <picture>
+    {% if craft.imageOptimize.serverSupportsWebP() %}
+      <source {% if lazy %}data-{% endif %}srcset="{{ optimizedImages.srcsetWebP() }}"
+              {% if lazy %}data-{% endif %}sizes="{{ sizes }}"
+              type="image/webp" />
+    {% endif %}
+      <img {% if lazy %}data-{% endif %}srcset="{{ optimizedImages.srcset() }}"
+           {% if lazy %}data-{% endif %}sizes="{{ sizes }}"
+           {% if lazy %}data-{% endif %}src="{{ image.url }}"
+           {% if lazy %}src="{{ optimizedImages.placeholderBox() }}"{% endif %}
+           alt = "{{ image.title }} | {{ siteName }}"
+           class="responsive-img {{ lazy ? 'lazyload' }} {{ classes|join(' ') }}"
+           style="{% if image.hasFocalPoint %}{% set x = image.focalPoint | first * 100 ~ '%' %}{% set y = image.focalPoint | last * 100 ~ '%' %}object-position: {{x}} {{y}};{% endif %}"
+           {% if title is not null %}title="{{ title }}"{% endif %}
+           {{ attributes|join(' ') }}>
+  </picture>
+{% else %}
+  <img   {% if lazy %}data-{% endif %}src="{{ image.url }}"
+         alt="{{ image.title }} | {{ siteName }}"
          class="responsive-img {{ lazy ? 'lazyload' }} {{ classes|join(' ') }}"
          style="{% if image.hasFocalPoint %}{% set x = image.focalPoint | first * 100 ~ '%' %}{% set y = image.focalPoint | last * 100 ~ '%' %}object-position: {{x}} {{y}};{% endif %}"
          {% if title is not null %}title="{{ title }}"{% endif %}
          {{ attributes|join(' ') }}>
-</picture>
-{# <img src="{{ image.url }}" alt="" class="responsive-img {{ classes|join(' ') }}" style="{% if image.hasFocalPoint %}{% set x = image.focalPoint | first * 100 ~ '%' %}{% set y = image.focalPoint | last * 100 ~ '%' %}object-position: {{x}} {{y}};{% endif %}" {{ attributes|join(' ') }}> #}
+{% endif %}
