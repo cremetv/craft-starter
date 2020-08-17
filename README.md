@@ -33,7 +33,7 @@ craft setup
 ```
 
 ## security key
-If you need to set your security manually you can do this from your terminal.  
+If you need to set your security manually you can do this from your terminal.\
 In your terminal, go to your project’s root directory and run the following command:
 ```
 php craft setup/security-key
