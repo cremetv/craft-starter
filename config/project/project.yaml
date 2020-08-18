@@ -19,7 +19,7 @@ plugins:
     enabled: true
     schemaVersion: 1.0.0
     settings:
-      toEmail: $SYSTEM_EMAIL
+      toEmail: $SYSTEM_EMAIL_REPLY
   contact-form-extensions:
     edition: standard
     enabled: true
