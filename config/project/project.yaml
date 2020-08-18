@@ -18,6 +18,8 @@ plugins:
     edition: standard
     enabled: true
     schemaVersion: 1.0.0
+    settings:
+      toEmail: $SYSTEM_EMAIL
   contact-form-extensions:
     edition: standard
     enabled: true
@@ -26,6 +28,8 @@ plugins:
     edition: standard
     enabled: true
     schemaVersion: 1.0.0
+    settings:
+      honeypotParam: sweetJusticeMail
   image-optimize:
     edition: standard
     enabled: false
