@@ -31,9 +31,9 @@
 {% set attributes = attributes is defined ? attributes : null %}
 {% set lazy = lazy is defined ? lazy : true %}
 
-{% set imageOptimizeIsInstalled = craft.app.plugins.isPluginInstalled('imageOptimize') %}
+{% set imageOptimizeIsInstalled = craft.app.plugins.isPluginEnabled('image-optimize') %}
 {% if imageOptimizeIsInstalled %}
-  {% set optimizedImages = image.imageTransform %}
+  {% set optimizedImages = image.optimizedImages %}
   <picture>
     {% if craft.imageOptimize.serverSupportsWebP() %}
       <source {% if lazy %}data-{% endif %}srcset="{{ optimizedImages.srcsetWebP() }}"
