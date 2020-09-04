@@ -34,7 +34,7 @@
 {% set lazy = lazy is defined ? lazy : true %}
 
 {% set imageOptimizeIsInstalled = craft.app.plugins.isPluginEnabled('image-optimize') %}
-{% if imageOptimizeIsInstalled and not image.extension == 'svg' %}
+{% if imageOptimizeIsInstalled and image.extension != 'svg' %}
   {% set optimizedImages = image.optimizedImages %}
   <picture>
     {% if craft.imageOptimize.serverSupportsWebP() %}
