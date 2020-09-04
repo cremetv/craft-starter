@@ -53,7 +53,7 @@
 
   {% block headScripts %}{% endblock %}
 </head>
-<body class="{% block bodyClass %}{% endblock %} {% if currentUser %}logged-in{% endif %}" data-barba="wrapper">
+<body class="{% block bodyClass %}{% endblock %} {{ currentUser ? 'logged-in' }}" data-barba="wrapper">
 
   {% include '_sections/_nav.twig' %}
 
