@@ -8,7 +8,7 @@
  # lazy        boolean | if the image should be lazy loaded or not | default true
  #}
 
-{% set image = image is defined ? image : null %}
+{% set image = image is defined ? image : placeholder is defined ? placeholder : null %}
 {# if image is a string search for it #}
 {% if not image is iterable  %}
   {% set image = craft.assets.filename(image).one() %}
@@ -21,8 +21,10 @@
 
 {# set image title if title is provided else check if copyright Info is provided #}
 {% set title = title is defined ? title : null %}
-{% if title is null and image.copyrightInfo|length  %}
-  {% set title = image.copyrightInfo %}
+{% if image['copyrightInfo'] is defined %}
+  {% if title is null and image.copyrightInfo|length  %}
+    {% set title = image.copyrightInfo %}
+  {% endif %}
 {% endif %}
 
 
