@@ -10,53 +10,64 @@
 
 {% set image = image is defined ? image : placeholder is defined ? placeholder : null %}
 {# if image is a string search for it #}
-{% if not image is iterable  %}
+{% if not image is iterable and image != null %}
   {% set image = craft.assets.filename(image).one() %}
 {% endif %}
 
-
-{# set a default alt text if nothing is provided #}
-{% set alt = alt is defined ? alt : image.title ~ ' | ' ~ siteName %}
-
-
-{# set image title if title is provided else check if copyright Info is provided #}
-{% set title = title is defined ? title : null %}
-{% if image['copyrightInfo'] is defined %}
-  {% if title is null and image.copyrightInfo|length  %}
-    {% set title = image.copyrightInfo %}
-  {% endif %}
+{# if image is still null try to find a placeholder #}
+{% if image is null %}
+  {% set image = craft.assets.filename('placeholder.jpg').one() %}
 {% endif %}
 
+{# only show image if there is an image #}
+{% if not image is null %}
 
-{% set classes = classes is defined ? classes : null %}
-{% set sizes = sizes is defined ? sizes : '100vw' %}
-{% set attributes = attributes is defined ? attributes : null %}
-{% set lazy = lazy is defined ? lazy : true %}
+  {# set a default alt text if nothing is provided #}
+  {% set alt = alt is defined ? alt : image.title ~ ' | ' ~ siteName %}
 
-{% set imageOptimizeIsInstalled = craft.app.plugins.isPluginEnabled('image-optimize') %}
-{% if imageOptimizeIsInstalled and image.extension != 'svg' %}
-  {% set optimizedImages = image.optimizedImages %}
-  <picture>
-    {% if craft.imageOptimize.serverSupportsWebP() %}
-      <source {% if lazy %}data-{% endif %}srcset="{{ optimizedImages.srcsetWebP() }}"
-              {% if lazy %}data-{% endif %}sizes="{{ sizes }}"
-              type="image/webp" />
+
+  {# set image title if title is provided else check if copyright Info is provided #}
+  {% set title = title is defined ? title : null %}
+  {% if image['copyrightInfo'] is defined %}
+    {% if title is null and image.copyrightInfo|length  %}
+      {% set title = image.copyrightInfo %}
     {% endif %}
-      <img {% if lazy %}data-{% endif %}srcset="{{ optimizedImages.srcset() }}"
-           {% if lazy %}data-{% endif %}sizes="{{ sizes }}"
-           {% if lazy %}data-{% endif %}src="{{ image.url }}"
-           {% if lazy %}src="{{ optimizedImages.placeholderBox() }}"{% endif %}
-           alt = "{{ image.title }} | {{ siteName }}"
+  {% endif %}
+
+
+  {% set classes = classes is defined ? classes : null %}
+  {% set sizes = sizes is defined ? sizes : '100vw' %}
+  {% set attributes = attributes is defined ? attributes : null %}
+  {% set lazy = lazy is defined ? lazy : true %}
+
+  {% set imageOptimizeIsInstalled = craft.app.plugins.isPluginEnabled('image-optimize') %}
+  {% if imageOptimizeIsInstalled and image.extension != 'svg' %}
+    {% set optimizedImages = image.optimizedImages %}
+    <picture>
+      {% if craft.imageOptimize.serverSupportsWebP() %}
+        <source {% if lazy %}data-{% endif %}srcset="{{ optimizedImages.srcsetWebP() }}"
+                {% if lazy %}data-{% endif %}sizes="{{ sizes }}"
+                type="image/webp" />
+      {% endif %}
+        <img {% if lazy %}data-{% endif %}srcset="{{ optimizedImages.srcset() }}"
+             {% if lazy %}data-{% endif %}sizes="{{ sizes }}"
+             {% if lazy %}data-{% endif %}src="{{ image.url }}"
+             {% if lazy %}src="{{ optimizedImages.placeholderBox() }}"{% endif %}
+             alt = "{{ image.title }} | {{ siteName }}"
+             class="responsive-img {{ lazy ? 'lazyload' }} {{ classes|join(' ') }}"
+             style="{% if image.hasFocalPoint %}{% set x = image.focalPoint | first * 100 ~ '%' %}{% set y = image.focalPoint | last * 100 ~ '%' %}object-position: {{x}} {{y}};{% endif %}"
+             {% if title is not null %}title="{{ title }}"{% endif %}
+             {{ attributes|join(' ') }}>
+    </picture>
+  {% else %}
+    <img   {% if lazy %}data-{% endif %}src="{{ image.url }}"
+           alt="{{ image.title }} | {{ siteName }}"
            class="responsive-img {{ lazy ? 'lazyload' }} {{ classes|join(' ') }}"
            style="{% if image.hasFocalPoint %}{% set x = image.focalPoint | first * 100 ~ '%' %}{% set y = image.focalPoint | last * 100 ~ '%' %}object-position: {{x}} {{y}};{% endif %}"
            {% if title is not null %}title="{{ title }}"{% endif %}
            {{ attributes|join(' ') }}>
-  </picture>
+  {% endif %}
+
 {% else %}
-  <img   {% if lazy %}data-{% endif %}src="{{ image.url }}"
-         alt="{{ image.title }} | {{ siteName }}"
-         class="responsive-img {{ lazy ? 'lazyload' }} {{ classes|join(' ') }}"
-         style="{% if image.hasFocalPoint %}{% set x = image.focalPoint | first * 100 ~ '%' %}{% set y = image.focalPoint | last * 100 ~ '%' %}object-position: {{x}} {{y}};{% endif %}"
-         {% if title is not null %}title="{{ title }}"{% endif %}
-         {{ attributes|join(' ') }}>
+  <span class="error">Couldn't find the image.</span>
 {% endif %}
